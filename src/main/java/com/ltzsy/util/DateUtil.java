@@ -1,7 +1,6 @@
-package com.ltzsy.date;
+package com.ltzsy.util;
 
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -146,12 +145,13 @@ public class DateUtil {
     }
 
     /**
-     * @description: 获取当前时间加上指定毫秒数（可负数）的格式化时间 <br>
+     * @description: 获取当前时间加上指定毫秒数的格式化时间 <br>
      * @version: 1.0 <br>
      * @author: leevi.li <br>
      * @create: 2022/6/28 15:20 <br>
      * @update: 2022/6/28 15:20 <br>
-     * @param: millisecond 毫秒数
+     * @param: millisecond 毫秒数（可正可负）
+     * @param: format 格式
      * @return java.lang.String
      */
     public static String getCurrentTimeAddMilli(Long millisecond, String format){
