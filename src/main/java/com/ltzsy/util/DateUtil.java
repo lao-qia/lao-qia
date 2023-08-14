@@ -1,5 +1,6 @@
 package com.ltzsy.util;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -17,7 +18,7 @@ import java.util.TimeZone;
 public class DateUtil {
 
     public static void main(String[] args) {
-        String str = getCurrentTimeAddMilli(1000l * 60, DATE_FORMAT_yy_MM_dd_1);
+        String str = getCurrentTimeAddMilli(-1000 * 60 * 60 * 24L,  DATE_FORMAT_yy_MM_dd);
         System.out.println(str);
     }
 
@@ -161,5 +162,57 @@ public class DateUtil {
         calendar.setTimeInMillis(millis);
         Date date = calendar.getTime();
         return formatDate(date, format);
+    }
+
+    /**
+     * @description: 给指定日期加上指定毫秒数的格式化时间 <br>
+     * @version: 1.0 <br>
+     * @author: leevi.li <br>
+     * @create: 2022/7/18 9:05 <br>
+     * @update: 2022/7/18 9:05 <br>
+     * @param: date
+     * @param: millisecond
+     * @param: format
+     * @return java.lang.String
+     */
+    public static String dateAddMilli(String date, Long millisecond, String format){
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        Date d = null;
+        try {
+            d = sdf.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        long dl = d.getTime();
+        dl += millisecond;
+        d.setTime(dl);
+        return sdf.format(d);
+    }
+
+    /**
+     * @description: subtractionForDay <br>
+     * @version: 1.0 <br>
+     * @author: leevi.li <br>
+     * @create: 2022/7/19 9:03 <br>
+     * @update: 2022/7/19 9:03 <br>
+     * @param: date1
+     * @param: date2
+     * @return int
+     */
+    public static int subtractionForDay(String date1, String date2){
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_yy_MM_dd);
+        Date d1 = null;
+        Date d2 = null;
+        try {
+            d1 = sdf.parse(date1);
+            d2 = sdf.parse(date2);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        long time1 = d1.getTime();
+        long time2 = d2.getTime();
+        long subTime = Math.abs(time1 - time2);
+        Long subDay = subTime / (60 * 60 * 24 * 1000);
+        return subDay.intValue();
     }
 }
